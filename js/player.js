@@ -1,76 +1,78 @@
-// class Jukebox {
-//     constructor(albums) {
-//         this.albums = []
-//     }
-//     addAlbum = function(album) {
-//         this.albums.push(album)
-//     }
-//     favoriteAlbum = function() {
-//         let max = -1, fav
-//         for (let i = 0; i < this.albums.length; i++) {
-//             if (this.albums[i].played > max) {
-//                 max = this.albums[i].played
-//                 fav = this.albums[i]
-//             }
-//         }
-//         return fav.display()
-//     }
-// }
+const $ = (id) => document.getElementById(id)
 
-// class Album {
-//     constructor(artist, title) {
-//         this.artist = artist
-//         this.title = title
-//         this.played = 0
-//     }
-//     play = function() {
-//         this.played += 1
-//     }
-//     display = function() {
-//         return `${this.artist} : ${this.title}. The album has been played ${this.played} times.`
-//     }
-// }
+class Jukebox {
+    constructor(albums) {
+        this.albums = []
+    }
+    addAlbum = function(album) {
+        this.albums.push(album)
+    }
 
-// var jbox = new Jukebox()
-// const album1 = new Album('Operation Ivy', 'Energy')
-// const album2 = new Album('Blink 182', 'Dude Ranch')
-// const album3 = new Album('New Found Glory', 'Sticks and Stones')
+    favoriteAlbum = function() {
+        let max = -1, fav
+        for (let i = 0; i < this.albums.length; i++) {
+            if (this.albums[i].played > max) {
+                max = this.albums[i].played
+                fav = this.albums[i]
+            }
+        }
+        return fav.display()
+    }
+}
 
-// jbox.addAlbum(album1)
-// jbox.addAlbum(album2)
-// jbox.addAlbum(album3)
+class Album {
+    constructor(artist, title) {
+        this.artist = artist
+        this.title = title
+        this.played = 0
+    }
+    play = function() {
+        this.played += 1
+        
+    }
 
-// album1.play()
-// album2.play()
-// album2.play()
-// album2.play()
-// album2.play()
-// album2.play()
-// album3.play()
-
-// console.log(`Your favorite album is: ${jbox.favoriteAlbum()}`)
-
-
+    display = function() {
+        return `${this.artist} : ${this.title}. The album has been played ${this.played} times.`
+    }
+}
 
 let songlist = [['Operation Ivy', 'Energy'], ['Blink 182', 'Dude Ranch'], ['New Found Glory', 'Sticks and Stones']]
 
+let jukebox = document.querySelector('#jukebox') 
 let songList = document.querySelector('#songList')
-let jukebox = document.querySelector('#jukebox')
+var jbox = new Jukebox()
+// let album = []
 
-// BUILD DROPDOWN MENU
-let option = document.createElement('option')
-for ( let i = 0; i< songlist.length; i++ ) {
-    songList.innerHTML +=
-    `<option>${songlist[i]}</option>
-     
-    `
-    songList.appendChild(option)
+function album1() {
+    let album =[]
+    for (let i = 0; i < songlist.length; i++ ) {
+        let option = document.createElement('option')     
+        album[i] = new Album(songlist[i][0], songlist[i][1])
+
+        songList.innerHTML +=
+        `<option>${album[i].artist}, ${album[i].title}</option>  
+        `
+        songList.appendChild(option)       
+    } 
 }
 
-btn.addEventListener('click', playSong)
-function playSong(song) {
-    if (song == ['Operation Ivy', 'Energy']) {
-        console.log('yep')
-    }
-}
+window.addEventListener('load', () => {
+    album1()
+})
+
+btn.addEventListener('click',()=> {        
+    let x = $('songList').value
+    x = x.split(/\,/)
+    const h = new Album (x[0], x[1])
+    jbox.addAlbum(h)
+    console.log(jbox.albums)
+    h.play() 
+    $('songList').value = ' '     
+})
+
+favAlbum.addEventListener('click',()=> {
+    alert(jbox.favoriteAlbum())
+})
+
+
 
