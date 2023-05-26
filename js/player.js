@@ -60,16 +60,18 @@ btn.addEventListener('click',()=> {
     
     if(x == 'Operation Ivy, Energy') {
         album[0].play()
-        jbox.addAlbum(album[0])        
+        jbox.addAlbum(album[0]) 
+        $('songList').value = ' '       
     }
-    
-    if(x == 'Blink 182, Dude Ranch') {
+    else if(x == 'Blink 182, Dude Ranch') {
         album[1].play()
         jbox.addAlbum(album[1])
+        $('songList').value = ' '
     }
-    if(x == 'New Found Glory, Sticks and Stones') {
+    else if(x == 'New Found Glory, Sticks and Stones') {
         album[2].play()
         jbox.addAlbum(album[2])
+        $('songList').value = ' '
     }  
 }) 
 
